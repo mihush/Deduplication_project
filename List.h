@@ -1,12 +1,10 @@
 //
-// Created by mihush on 11/12/2017.
+// Created by Polina on 08-Dec-17.
 //
 
-#ifndef DEDUPLICATION_PROJ_LIST_H
-#define DEDUPLICATION_PROJ_LIST_H
+#ifndef DEDUP_LIST_H
+#define DEDUP_LIST_H
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
 /**
 * Generic List Container
@@ -43,21 +41,19 @@
 *   listClear		      	  - Clears all the data from the list
 */
 
+/** Type for defining the list */
+typedef struct List_t *List;
 
 /** Type used for returning error codes from list functions */
 typedef enum ListResult_t {
-    LIST_SUCCESS,
-    LIST_NULL_ARGUMENT,
-    LIST_OUT_OF_MEMORY,
-    LIST_INVALID_CURRENT,
+	LIST_SUCCESS,
+	LIST_NULL_ARGUMENT,
+	LIST_OUT_OF_MEMORY,
+	LIST_INVALID_CURRENT,
 } ListResult;
 
 /** Element data type for list container */
 typedef void* ListElement;
-/** Type for defining the list */
-typedef struct List_node * Node;
-typedef struct List_t *List;
-void NodeAdd(Node a, Node b);
 
 /**
 * Type of function for copying an element of the list.
@@ -78,10 +74,10 @@ void NodeAdd(Node a, Node b);
 * @endcode
 */
 typedef ListElement(*CopyListElement)(ListElement);
-typedef bool(*CompareListElement)(ListElement,ListElement);
+
 /** Type of function for deallocating an element of the list */
 typedef void(*FreeListElement)(ListElement);
-Node NodeCreate(ListElement element, CopyListElement copyElement);
+
 /**
 * Type of function that can be used by the list for sorting or finding.
 * This function should return a value greater than 0 if the second element is
@@ -115,11 +111,6 @@ typedef void* ListFilterKey;
 * @endcode
 */
 typedef bool(*FilterListElement)(ListElement, ListFilterKey);
-
-/*
- * TODO: add description for new function LISTFIND
- */
-ListElement listFind(List list, ListElement toFind, CompareListElement compare);
 
 /**
 * Allocates a new List.
@@ -398,6 +389,4 @@ void listDestroy(List list);
 		iterator ;\
 		iterator = listGetNext(list))
 
-void listDebug(List list);
-
-#endif //DEDUPLICATION_PROJ_LIST_H
+#endif //DEDUP_LIST_H
